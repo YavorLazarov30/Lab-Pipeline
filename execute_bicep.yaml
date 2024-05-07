@@ -1,0 +1,27 @@
+# YAML Pipeline for Creating a Bicep file with Resource Group, App Service Plan, and Web App
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: ps-rule-assert@2
+  displayName: Analyze Azure template file
+  continueOnError: true
+  inputs:
+    modules: 'PSRule.Rules.Azure'
+    inputPath: 'Template/'
+    outputPath: reports/ps-rule-results.json
+
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'SuperConnection1'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az deployment group create --resource-group lab-rg1 --template-file template.bicep --parameters rgName=lab-rg1 appPlanName=app-plan-lab-rg1 webAppName=app-lab-rg1
+      failOnStandardError: true
+      displayName: 'Deploy Bicep file'
