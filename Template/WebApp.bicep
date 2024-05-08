@@ -3,13 +3,13 @@
 param location string = 'northeurope'
 
 @description('The name of the App Service app.')
-param appServiceAppName string 
+param appServiceAppName string = 'WebApp-Lab-Yavor'
 
 @description('Name of the App Service plan.')
-param appServicePlanName string
+param appServicePlanName string = 'Service-Plan-Lab-Yavor'
 
 @description('The name of the App Service plan SKU')
-param appServicePlanSKUname string
+param appServicePlanSKUname string = 'F1'
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2023-01-01' = {
    name: appServicePlanName
