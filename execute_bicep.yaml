@@ -3,6 +3,14 @@
 trigger:
 - main
 
+variables:
+  appPlanName: 'app-plan-$(rgName)'
+  webAppName: 'app-$(rgName)'
+  location: 'northeurope'
+parameters:
+- name: rgName
+  type: string
+  default: 'lab-rg1'
 pool:
   vmImage: 'ubuntu-latest'
 
@@ -22,7 +30,7 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      az group create --name "Lab-Pipeline-Yavor" --location northeurope
-      az deployment group create --resource-group "Lab-Pipeline-Yavor" --template-file Template/WebApp.bicep 
+      az group create --name $(rgName) --location $(location)
+      az deployment group create --resource-group "Lab-Pipeline-Yavor" --template-file Template/WebApp.bicep --parameters rgName=$(rgName) location=$(location) appServicePlanName=$(appPlanName) appServiceAppName=$(webAppName)
     failOnStandardError: true
     displayName: 'Deploy Bicep file'
