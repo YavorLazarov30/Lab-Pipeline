@@ -1,8 +1,10 @@
 # YAML Pipeline for Creating a Bicep file with Resource Group, App Service Plan, and Web App
 
+# When there is a change on the main branch the Pipeline will be triggered
 trigger:
 - main
 
+#Predefined variables for the Bicep file
 variables:
   rgName: 'lab-rg1'
   appPlanName: 'app-plan-$(rgName)'
@@ -11,7 +13,7 @@ variables:
   sku: 'F1'
 pool:
   vmImage: 'ubuntu-latest'
-
+#We run the PS RULE analyzer here and wait to see what errors it will find. But no matter what happens it is not stopping the Pipeline because of the continueOnError=true var
 steps:
 - task: ps-rule-assert@2
   displayName: Analyze Azure template file
@@ -21,7 +23,7 @@ steps:
     inputPath: 'Template/'
     outputPath: reports/ps-rule-results.json
 
-
+#No matter what happens in the previous step we try to create an RG and the Web App and the App Service afterwards. We stop when we encounter error. 
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'Lab-Connection-2'
