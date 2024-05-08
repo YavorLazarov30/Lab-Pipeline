@@ -29,6 +29,6 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: |
       az group create --name $(rgName) --location $(location)
-      az deployment group create --resource-group "Lab-Pipeline-Yavor" --template-file Template/WebApp.bicep --parameters rgName=$(rgName) location=$(location) appServicePlanName=$(appPlanName) appServiceAppName=$(webAppName)
+      az deployment group create --resource-group "Lab-Pipeline-Yavor" --template-file Template/WebApp.bicep --parameters location=$(location) appServicePlanName=$(appPlanName) appServiceAppName=$(webAppName)
     failOnStandardError: true
     displayName: 'Deploy Bicep file'
