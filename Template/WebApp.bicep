@@ -1,34 +1,33 @@
-@allowed(
-  ['northeurope']
-)
+@description('Azure Region')
+@allowed(['northeurope'])
 param location string = 'northeurope'
 
-resource rg 'lab-rg1' = {
-  name: 'lab-rg1'
-  location: location
+@description('The name of the App Service app.')
+param appServiceAppName string 
+
+@description('Name of the App Service plan.')
+param appServicePlanName string
+
+@description('The name of the App Service plan SKU')
+param appServicePlanSKUname string
+
+resource appServicePlan 'Microsoft.Web/serverfarms@2023-01-01' = {
+   name: appServicePlanName
+   location: location
+   sku: {
+      name: appServicePlanSKUname
+   }
 }
 
-resource appPlan 'app-plan-lab-rg1' = {
-  name: 'app-plan-lab-rg1'
+resource appServiceApp 'Microsoft.Web/sites@2023-01-01' = {
+  name: appServiceAppName
   location: location
-  kind: 'app'
-  sku: {
-    tier: 'Standard'
-    size: 'S1'
-  }
-  dependsOn: [
-    rg
-  ]
-}
-
-resource webApp 'app-lab-rg1' = {
-  name: 'app-lab-rg1'
-  location: location
-  kind: 'app'
   properties: {
-    serverFarmId: appPlan.id
+    serverFarmId: appServicePlan.id
+    httpsOnly: true
   }
-  dependsOn: [
-    appPlan
-  ]
 }
+
+@description('The default host name of the App Service app')
+output appServiceAppHostName string = appServiceApp.properties.defaultHostName
+
