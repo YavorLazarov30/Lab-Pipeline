@@ -1,7 +1,7 @@
 @allowed(
   ['northeurope']
 )
-param location string = 'westus2'
+param location string = 'northeurope'
 
 resource rg 'lab-rg1' = {
   name: 'lab-rg1'
@@ -23,7 +23,7 @@ resource appPlan 'app-plan-lab-rg1' = {
 
 resource webApp 'app-lab-rg1' = {
   name: 'app-lab-rg1'
-  location: 'westus2'
+  location: location
   kind: 'app'
   properties: {
     serverFarmId: appPlan.id
