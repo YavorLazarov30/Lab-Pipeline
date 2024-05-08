@@ -22,6 +22,6 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      az deployment group create --resource-group lab-rg1 --template-file template.bicep --parameters rgName=lab-rg1 appPlanName=app-plan-lab-rg1 webAppName=app-lab-rg1
-      failOnStandardError: true
-      displayName: 'Deploy Bicep file'
+      az deployment group create --resource-group lab-rg1 --template-file Template/WebApp.bicep 
+    failOnStandardError: true
+    displayName: 'Deploy Bicep file'
