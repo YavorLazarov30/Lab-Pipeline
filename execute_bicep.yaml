@@ -23,6 +23,6 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: |
       az group create --name "Lab-Pipeline-Yavor" --location northeurope
-      az deployment group create --resource-group lab-rg1 --template-file Template/WebApp.bicep 
+      az deployment group create --resource-group "Lab-Pipeline-Yavor" --template-file Template/WebApp.bicep 
     failOnStandardError: true
     displayName: 'Deploy Bicep file'
