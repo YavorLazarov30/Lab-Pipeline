@@ -4,13 +4,11 @@ trigger:
 - main
 
 variables:
+  rgName: 'lab-rg1'
   appPlanName: 'app-plan-$(rgName)'
   webAppName: 'app-$(rgName)'
   location: 'northeurope'
-parameters:
-- name: rgName
-  type: string
-  default: 'lab-rg1'
+ 
 pool:
   vmImage: 'ubuntu-latest'
 
