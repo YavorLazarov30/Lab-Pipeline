@@ -1,15 +1,15 @@
 @description('Azure Region')
 @allowed(['northeurope'])
-param location string = 'northeurope'
+param location string
 
 @description('The name of the App Service app.')
-param appServiceAppName string = 'WebApp-Lab-Yavor'
+param appServiceAppName string
 
 @description('Name of the App Service plan.')
-param appServicePlanName string = 'Service-Plan-Lab-Yavor'
+param appServicePlanName string
 
 @description('The name of the App Service plan SKU')
-param appServicePlanSKUname string = 'F1'
+param appServicePlanSKUname string
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2023-01-01' = {
    name: appServicePlanName
