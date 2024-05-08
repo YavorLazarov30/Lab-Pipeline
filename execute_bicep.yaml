@@ -18,7 +18,7 @@ steps:
 
 - task: AzureCLI@2
   inputs:
-    azureSubscription: 'SuperConnection1'
+    azureSubscription: 'Lab-Connection-2'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
